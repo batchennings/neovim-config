@@ -75,3 +75,12 @@ vim.keymap.set("n", "<leader><leader>", function()
 end)
 
 vim.keymap.set("n", "<C-n>", vim.cmd.NvimTreeToggle);
+
+-- Auto close brackets, quotes, etc
+vim.keymap.set("i", "\"", "\"\"<left>")
+vim.keymap.set("i", "\'", "\'\'<left>")
+vim.keymap.set("i", "(", "()<left>")
+vim.keymap.set("i", "[", "[]<left>")
+vim.keymap.set("i", "{", "{}<left>")
+vim.keymap.set("i", "<", "<><left>")
+vim.keymap.set("i", "{<CR>", "{<CR><CR>}<up><TAB>")
