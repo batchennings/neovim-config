@@ -12,6 +12,7 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
+        'jose-elias-alvarez/null-ls.nvim',
     },
 
     config = function()
@@ -19,7 +20,51 @@ return {
             formatters_by_ft = {
             }
         })
+        local nvim_lsp = require("lspconfig")
+        local on_attach = function(client, bufnr)
+            -- format on save
+            if client.server_capabilities.documentFormattingProvider then
+                vim.api.nvim_create_autocmd("BufWritePre", {
+                    group = vim.api.nvim_create_augroup("Format", { clear = true }),
+                    buffer = bufnr,
+                    callback = function() vim.lsp.buf.format({id=client.id }) end
+                })
+            end
+        end
+        -- TypeScript
+        nvim_lsp.ts_ls.setup {
+            on_attach = on_attach,
+            filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+            cmd = { "typescript-language-server", "--stdio" }
+        }
+        nvim_lsp.tailwindcss.setup {}
         local cmp = require('cmp')
+        --local lspkind = require 'lspkind'
+        cmp.setup({
+            snippet = {
+                expand = function(args)
+                    require('luasnip').lsp_expand(args.body)
+                end,
+            },
+            mapping = cmp.mapping.preset.insert({
+                ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+                ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                ['<C-Space>'] = cmp.mapping.complete(),
+                ['<C-e>'] = cmp.mapping.close(),
+                ['<CR>'] = cmp.mapping.confirm({
+                    behavior = cmp.ConfirmBehavior.Replace,
+                    select = true
+                }),
+            }),
+            sources = cmp.config.sources({
+                { name = 'nvim_lsp' },
+                { name = 'buffer' },
+            }),
+            -- formatting = {
+            --     format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
+            -- }
+        })
+
         local cmp_lsp = require("cmp_nvim_lsp")
         local capabilities = vim.tbl_deep_extend(
             "force",
@@ -32,7 +77,9 @@ return {
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",
-                "eslint"
+                "eslint",
+                "sumneko_lua",
+                "tailwindcss"
             },
             handlers = {
                 function(server_name) -- default handler (optional)

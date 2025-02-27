@@ -76,11 +76,15 @@ end)
 
 vim.keymap.set("n", "<C-n>", vim.cmd.NvimTreeToggle);
 
+vim.keymap.set('n', '<Tab>', '<Cmd>BufferLineCycleNext<CR>', {})
+vim.keymap.set('n', '<S-Tab>', '<Cmd>BufferLineCyclePrev<CR>', {})
+
+
 -- Auto close brackets, quotes, etc
-vim.keymap.set("i", "\"", "\"\"<left>")
-vim.keymap.set("i", "\'", "\'\'<left>")
-vim.keymap.set("i", "(", "()<left>")
-vim.keymap.set("i", "[", "[]<left>")
-vim.keymap.set("i", "{", "{}<left>")
-vim.keymap.set("i", "<", "<><left>")
-vim.keymap.set("i", "{<CR>", "{<CR><CR>}<up><TAB>")
+--vim.keymap.set("i", "\"", "\"\"<left>")
+--vim.keymap.set("i", "\'", "\'\'<left>")
+--vim.keymap.set("i", "(", "()<left>")
+--vim.keymap.set("i", "[", "[]<left>")
+--vim.keymap.set("i", "{", "{}<left>")
+--vim.keymap.set("i", "<", "<><left>")
+--vim.keymap.set("i", "{<CR>", "{<CR><CR>}<up><TAB>")
