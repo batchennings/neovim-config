@@ -57,8 +57,11 @@ return {
                 branch = "master",
             },
         }
+        -- local ft_to_parser = require("nvim-treesitter.parsers").filetype_to_parsername
+        -- ft_to_parser.mdx = "markdown"
 
         vim.treesitter.language.register("templ", "templ")
         vim.treesitter.language.register("astro", "astro")
+        vim.treesitter.language.register("mdx", "mdx")
     end
 }
