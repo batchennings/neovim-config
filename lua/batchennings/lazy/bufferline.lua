@@ -6,8 +6,11 @@ return{
                 mode = "tabs",
                 separator_style = 'slant',
                 always_show_bufferline = false,
+                numbers = function(opts)
+                    return string.format('%s|%s', opts.id, opts.raise(opts.ordinal))
+                end,
                 show_buffer_close_icons = false,
-                show_close_icon = false,
+                show_close_icon = true,
                 color_icons = true
             },
             highlights = {
