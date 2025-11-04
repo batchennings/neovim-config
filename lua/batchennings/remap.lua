@@ -82,7 +82,7 @@ vim.keymap.set('n', '<S-Tab>', '<Cmd>BufferLineCyclePrev<CR>', {})
 
 -- Auto close brackets, quotes, etc
 vim.keymap.set("i", "\"", "\"\"<left>")
-vim.keymap.set("i", "\'", "\'\'<left>")
+-- vim.keymap.set("i", "\'", "\'\'<left>")
 vim.keymap.set("i", "(", "()<left>")
 vim.keymap.set("i", "[", "[]<left>")
 vim.keymap.set("i", "{", "{}<left>")

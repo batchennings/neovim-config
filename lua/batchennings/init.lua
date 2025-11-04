@@ -45,7 +45,7 @@ autocmd({"BufWritePre"}, {
     pattern = "*",
     command = [[%s/\s\+$//e]],
 })
-autocmd({'BufEnter', 'BufNew'}, {
+autocmd({'BufEnter', 'BufNew', 'BufRead'}, {
     group = ThePrimeagenGroup,
     pattern = "*.astro",
     callback = function()

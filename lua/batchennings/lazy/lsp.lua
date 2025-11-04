@@ -78,7 +78,7 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "eslint",
-                "sumneko_lua",
+                -- "sumneko_lua",
                 "tailwindcss"
             },
             handlers = {
