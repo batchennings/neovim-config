@@ -20,7 +20,7 @@ return {
             formatters_by_ft = {
             }
         })
-        local nvim_lsp = require("lspconfig")
+        --local nvim_lsp = require("lspconfig")
         local on_attach = function(client, bufnr)
             -- format on save
             if client.server_capabilities.documentFormattingProvider then
@@ -32,12 +32,43 @@ return {
             end
         end
         -- TypeScript
-        nvim_lsp.ts_ls.setup {
-            on_attach = on_attach,
+        vim.lsp.config('ts_ls', {
+            cmd = { "typescript-language-server", "--stdio" },
             filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-            cmd = { "typescript-language-server", "--stdio" }
-        }
-        nvim_lsp.tailwindcss.setup {}
+            root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
+        })
+
+        -- TypeScript
+        -- nvim_lsp.ts_ls.setup {
+        --     on_attach = on_attach,
+        --     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+        --     cmd = { "typescript-language-server", "--stdio" }
+        -- }
+        --nvim_lsp.tailwindcss.setup {}
+
+        -- Tailwind
+        vim.lsp.config('tailwindcss', {
+            cmd = { "tailwindcss-language-server", "--stdio" },
+            root_markers = { 'tailwind.config.js', 'tailwind.config.ts', 'package.json' },
+        })
+        -- vim.api.nvim_create_autocmd('FileType', {
+        --     pattern = { 'html', 'css', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+        --     callback = function(args)
+        --         vim.lsp.enable('tailwindcss')
+        --     end,
+        -- })
+
+        vim.api.nvim_create_autocmd('FileType', {
+            pattern = { 'typescript', 'typescriptreact', 'typescript.tsx' },
+            callback = function(args)
+                vim.lsp.enable('ts_ls')
+                local client = vim.lsp.get_clients({ bufnr = args.buf, name = 'ts_ls' })[1]
+                if client then
+                    on_attach(client, args.buf)
+                end
+            end,
+        })
+
         local cmp = require('cmp')
         --local lspkind = require 'lspkind'
         cmp.setup({
