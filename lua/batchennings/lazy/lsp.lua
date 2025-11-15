@@ -14,13 +14,16 @@ return {
         "j-hui/fidget.nvim",
         'jose-elias-alvarez/null-ls.nvim',
     },
-
     config = function()
         require("conform").setup({
             formatters_by_ft = {
             }
         })
+<<<<<<< Updated upstream
         --local nvim_lsp = require("lspconfig")
+=======
+
+>>>>>>> Stashed changes
         local on_attach = function(client, bufnr)
             -- format on save
             if client.server_capabilities.documentFormattingProvider then
@@ -31,6 +34,7 @@ return {
                 })
             end
         end
+
         -- TypeScript
         vim.lsp.config('ts_ls', {
             cmd = { "typescript-language-server", "--stdio" },
@@ -38,6 +42,7 @@ return {
             root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
         })
 
+<<<<<<< Updated upstream
         -- TypeScript
         -- nvim_lsp.ts_ls.setup {
         --     on_attach = on_attach,
@@ -58,6 +63,8 @@ return {
         --     end,
         -- })
 
+=======
+>>>>>>> Stashed changes
         vim.api.nvim_create_autocmd('FileType', {
             pattern = { 'typescript', 'typescriptreact', 'typescript.tsx' },
             callback = function(args)
@@ -69,95 +76,27 @@ return {
             end,
         })
 
+<<<<<<< Updated upstream
+=======
+        -- Tailwind
+        vim.lsp.config('tailwindcss', {
+            cmd = { "tailwindcss-language-server", "--stdio" },
+            root_markers = { 'tailwind.config.js', 'tailwind.config.ts', 'package.json' },
+        })
+
+        vim.api.nvim_create_autocmd('FileType', {
+            pattern = { 'html', 'css', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+            callback = function(args)
+                vim.lsp.enable('tailwindcss')
+            end,
+        })
+
+>>>>>>> Stashed changes
         local cmp = require('cmp')
-        --local lspkind = require 'lspkind'
         cmp.setup({
             snippet = {
                 expand = function(args)
                     require('luasnip').lsp_expand(args.body)
-                end,
-            },
-            mapping = cmp.mapping.preset.insert({
-                ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-                ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                ['<C-Space>'] = cmp.mapping.complete(),
-                ['<C-e>'] = cmp.mapping.close(),
-                ['<CR>'] = cmp.mapping.confirm({
-                    behavior = cmp.ConfirmBehavior.Replace,
-                    select = true
-                }),
-            }),
-            sources = cmp.config.sources({
-                { name = 'nvim_lsp' },
-                { name = 'buffer' },
-            }),
-            -- formatting = {
-            --     format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
-            -- }
-        })
-
-        local cmp_lsp = require("cmp_nvim_lsp")
-        local capabilities = vim.tbl_deep_extend(
-            "force",
-            {},
-            vim.lsp.protocol.make_client_capabilities(),
-            cmp_lsp.default_capabilities())
-
-        require("fidget").setup({})
-        require("mason").setup()
-        require("mason-lspconfig").setup({
-            ensure_installed = {
-                "lua_ls",
-                "eslint",
-                -- "sumneko_lua",
-                "tailwindcss"
-            },
-            handlers = {
-                function(server_name) -- default handler (optional)
-                    require("lspconfig")[server_name].setup {
-                        capabilities = capabilities
-                    }
-                end,
-
-                zls = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.zls.setup({
-                        root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
-                        settings = {
-                            zls = {
-                                enable_inlay_hints = true,
-                                enable_snippets = true,
-                                warn_style = true,
-                            },
-                        },
-                    })
-                    vim.g.zig_fmt_parse_errors = 0
-                    vim.g.zig_fmt_autosave = 0
-
-                end,
-                ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.lua_ls.setup {
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                runtime = { version = "Lua 5.1" },
-                                diagnostics = {
-                                    globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
-                                }
-                            }
-                        }
-                    }
-                end,
-            }
-        })
-
-        local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
-        cmp.setup({
-            snippet = {
-                expand = function(args)
-                    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
                 end,
             },
             mapping = cmp.mapping.preset.insert({
