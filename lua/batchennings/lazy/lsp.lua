@@ -19,11 +19,6 @@ return {
             formatters_by_ft = {
             }
         })
-<<<<<<< Updated upstream
-        --local nvim_lsp = require("lspconfig")
-=======
-
->>>>>>> Stashed changes
         local on_attach = function(client, bufnr)
             -- format on save
             if client.server_capabilities.documentFormattingProvider then
@@ -42,29 +37,6 @@ return {
             root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
         })
 
-<<<<<<< Updated upstream
-        -- TypeScript
-        -- nvim_lsp.ts_ls.setup {
-        --     on_attach = on_attach,
-        --     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-        --     cmd = { "typescript-language-server", "--stdio" }
-        -- }
-        --nvim_lsp.tailwindcss.setup {}
-
-        -- Tailwind
-        vim.lsp.config('tailwindcss', {
-            cmd = { "tailwindcss-language-server", "--stdio" },
-            root_markers = { 'tailwind.config.js', 'tailwind.config.ts', 'package.json' },
-        })
-        -- vim.api.nvim_create_autocmd('FileType', {
-        --     pattern = { 'html', 'css', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-        --     callback = function(args)
-        --         vim.lsp.enable('tailwindcss')
-        --     end,
-        -- })
-
-=======
->>>>>>> Stashed changes
         vim.api.nvim_create_autocmd('FileType', {
             pattern = { 'typescript', 'typescriptreact', 'typescript.tsx' },
             callback = function(args)
@@ -76,8 +48,6 @@ return {
             end,
         })
 
-<<<<<<< Updated upstream
-=======
         -- Tailwind
         vim.lsp.config('tailwindcss', {
             cmd = { "tailwindcss-language-server", "--stdio" },
@@ -91,7 +61,6 @@ return {
             end,
         })
 
->>>>>>> Stashed changes
         local cmp = require('cmp')
         cmp.setup({
             snippet = {
